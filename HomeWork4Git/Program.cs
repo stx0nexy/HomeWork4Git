@@ -4,7 +4,7 @@ namespace HomeWork4Git
 {
     class Program
     {
-        static void Main(string[] args)
+         static void Main(string[] args)
         {
             Console.WriteLine("Enter array dimension:");
             int n = Convert.ToInt32(Console.ReadLine());
@@ -13,7 +13,7 @@ namespace HomeWork4Git
             int index1 = 0;
             int index2 = 0;
             string alphabet = "abcdefghijklmnopqrstuvwxyz";
-            string exception = "a e i d h j";
+            char[] arrayExceptions = { 'a', 'e', 'i', 'd', 'h', 'j' };
             Random rand = new Random();
             for (int i = 0; i < n; i++)
             {
@@ -24,69 +24,71 @@ namespace HomeWork4Git
                 }
             }
 
+            int[] arrayEvenNumbers = new int[size];
+            int[] arrayOddNumbers = new int[n - size];
+            char[] arrayEvenLetters = new char[size];
+            char[] arrayOddLetters = new char[n - size];
+            char[] arrayEvenUpLetters = new char[size];
+            char[] arrayOddUpLetters = new char[n - size];
             Console.WriteLine(string.Join(" ", arr));
-            int[] mas1 = new int[size];
-            int[] mas2 = new int[n - size];
             for (int i = 0; i < n; i++)
             {
                 if (arr[i] % 2 == 0)
                 {
-                    mas1[index1] = arr[i];
+                    arrayEvenNumbers[index1] = arr[i];
                     index1++;
                 }
                 else
                 {
-                    mas2[index2] = arr[i];
+                    arrayOddNumbers[index2] = arr[i];
                     index2++;
                 }
             }
 
-            string a = string.Empty;
-            string b = string.Empty;
-            Console.WriteLine(string.Join(" ", mas1));
-            Console.WriteLine(string.Join(" ", mas2));
-            for (int i = 0; i < size; i++)
+            Console.WriteLine(string.Join(" ", arrayEvenNumbers));
+            Console.WriteLine(string.Join(" ", arrayOddNumbers));
+            for (int i = 0; i < arrayEvenLetters.Length; i++)
             {
-                a += alphabet.Substring(mas1[i] - 1, 1) + ' ';
+                arrayEvenLetters[i] = Convert.ToChar(alphabet.Substring(arrayEvenNumbers[i] - 1, 1));
             }
 
-            for (int i = 0; i < n - size; i++)
+            for (int i = 0; i < arrayOddLetters.Length; i++)
             {
-                b += alphabet.Substring(mas2[i] - 1, 1) + ' ';
+                arrayOddLetters[i] = Convert.ToChar(alphabet.Substring(arrayOddNumbers[i] - 1, 1));
             }
 
-            Console.WriteLine(a);
-            string[] mass1Str = a.Trim().Split(' ');
-            string[] mass2Str = b.Trim().Split(' ');
-            string[] mass3 = exception.Split(' ');
-            string output1 = string.Empty;
-            for (var i = 0; i < mass1Str.Length; i++)
+            for (int i =0; i < arrayEvenLetters.Length; i++)
             {
-                string word = mass1Str[i];
-                if (exception.Contains(word))
+                char letter = arrayEvenLetters[i];
+                for (int j=0; j < arrayExceptions.Length; j++)
                 {
-                    output1 += word.ToUpper() + " ";
-                    continue;
+                    arrayEvenUpLetters[i] = letter;
+                    if (letter == arrayExceptions[j])
+                    {
+                        arrayEvenUpLetters[i] = Char.ToUpper(letter);
+                        break;
+                    }
                 }
-
-                output1 += word + " ";
             }
 
-            Console.WriteLine(output1);
-            string output2 = string.Empty;
-            for (var i = 0; i < mass2Str.Length; i++)
+            for (int i = 0; i < arrayOddLetters.Length; i++)
             {
-                string word = mass2Str[i];
-                if (exception.Contains(word))
+                char letter = arrayOddLetters[i];
+                for (int j = 0; j < arrayExceptions.Length; j++)
                 {
-                    output2 += word.ToUpper() + " ";
-                    continue;
+                    arrayOddUpLetters[i] = letter;
+                    if (letter == arrayExceptions[j])
+                    {
+                        arrayOddUpLetters[i] = Char.ToUpper(letter);
+                        break;
+                    }
                 }
-
-                output2 += word + " ";
             }
 
-            Console.WriteLine(output2);
+            Console.WriteLine(string.Join(" ", arrayEvenLetters));
+            Console.WriteLine(string.Join(" ", arrayEvenUpLetters));
+            Console.WriteLine(string.Join(" ", arrayOddLetters));
+            Console.WriteLine(string.Join(" ", arrayOddUpLetters));
         }
     }
 }
